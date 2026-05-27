@@ -84,7 +84,7 @@ def handler(job):
         env = os.environ.copy()
         env["HALLO2_OUTPUT_DIR"] = work_dir
         env["PYTHONPATH"] = VENV_SITE + ":" + HALLO2_DIR + ":" + env.get("PYTHONPATH", "")
-        env["PATH"] = os.path.join(HALLO2_DIR, "venv/bin") + ":" + env.get("PATH", "")
+        env["PATH"] = HALLO2_DIR + ":" + os.path.join(HALLO2_DIR, "venv/bin") + ":" + env.get("PATH", "")
 
         result = subprocess.run(
             cmd, capture_output=True, text=True, cwd=HALLO2_DIR, env=env, timeout=600
