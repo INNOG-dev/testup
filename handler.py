@@ -14,8 +14,10 @@ import runpod
 import yaml
 
 HALLO2_DIR = "/runpod-volume/hallo2"
-VENV_PYTHON = os.path.join(HALLO2_DIR, "venv/bin/python")
+VENV_BIN = os.path.join(HALLO2_DIR, "venv/bin")
+VENV_PYTHON = os.path.join(VENV_BIN, "python")
 VENV_SITE = os.path.join(HALLO2_DIR, "venv/lib/python3.11/site-packages")
+FFMPEG = os.path.join(VENV_BIN, "ffmpeg")
 CONFIG_PATH = os.path.join(HALLO2_DIR, "configs/inference/long.yaml")
 OUTPUT_DIR = "/tmp/hallo2_output"
 
@@ -29,7 +31,7 @@ def download_file(url: str, dest: str):
 
 def convert_audio_to_wav(input_path: str, output_path: str, start: float = 0, duration: float = 0):
     """Convert audio to WAV format, optionally trimming a segment."""
-    cmd = ["ffmpeg", "-y", "-i", input_path]
+    cmd = [FFMPEG, "-y", "-i", input_path]
     if start > 0:
         cmd += ["-ss", str(start)]
     if duration > 0:
