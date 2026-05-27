@@ -13,7 +13,7 @@ import requests
 import runpod
 import yaml
 
-HALLO2_DIR = "/app/hallo2"
+HALLO2_DIR = "/runpod-volume/hallo2"
 CONFIG_PATH = os.path.join(HALLO2_DIR, "configs/inference/long.yaml")
 OUTPUT_DIR = "/tmp/hallo2_output"
 
