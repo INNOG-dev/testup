@@ -14,6 +14,8 @@ import runpod
 import yaml
 
 HALLO2_DIR = "/runpod-volume/hallo2"
+VENV_PYTHON = os.path.join(HALLO2_DIR, "venv/bin/python")
+VENV_SITE = os.path.join(HALLO2_DIR, "venv/lib/python3.11/site-packages")
 CONFIG_PATH = os.path.join(HALLO2_DIR, "configs/inference/long.yaml")
 OUTPUT_DIR = "/tmp/hallo2_output"
 
@@ -67,7 +69,7 @@ def handler(job):
         output_video = os.path.join(work_dir, "output.mp4")
 
         cmd = [
-            sys.executable, os.path.join(HALLO2_DIR, "scripts/inference_long.py"),
+            VENV_PYTHON, os.path.join(HALLO2_DIR, "scripts/inference_long.py"),
             "-c", CONFIG_PATH,
             "--source_image", img_path,
             "--driving_audio", wav_path,
@@ -79,6 +81,8 @@ def handler(job):
 
         env = os.environ.copy()
         env["HALLO2_OUTPUT_DIR"] = work_dir
+        env["PYTHONPATH"] = VENV_SITE + ":" + HALLO2_DIR + ":" + env.get("PYTHONPATH", "")
+        env["PATH"] = os.path.join(HALLO2_DIR, "venv/bin") + ":" + env.get("PATH", "")
 
         result = subprocess.run(
             cmd, capture_output=True, text=True, cwd=HALLO2_DIR, env=env, timeout=600
