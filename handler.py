@@ -17,7 +17,7 @@ HALLO2_DIR = "/runpod-volume/hallo2"
 VENV_BIN = os.path.join(HALLO2_DIR, "venv/bin")
 VENV_PYTHON = os.path.join(VENV_BIN, "python")
 VENV_SITE = os.path.join(HALLO2_DIR, "venv/lib/python3.11/site-packages")
-FFMPEG = os.path.join(VENV_BIN, "ffmpeg")
+FFMPEG = os.path.join(HALLO2_DIR, "ffmpeg")
 CONFIG_PATH = os.path.join(HALLO2_DIR, "configs/inference/long.yaml")
 OUTPUT_DIR = "/tmp/hallo2_output"
 
